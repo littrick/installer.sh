@@ -1,0 +1,58 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+env:
+  CC: clang
+
+jobs:
+  build_installer:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: "littrick/littrailblazer"
+
+      - uses: actions/checkout@v4
+        with:
+          path: configs
+
+      - name: Setup the toolchain
+        run: rustup default nightly
+
+      - name: Setup the target
+        run: rustup target add x86_64-unknown-linux-musl
+
+      - name: Build the Script_Builder
+        run: cargo r --bin script_builder -- -p pioneer -c configs/*.toml
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: installer
+          path: installer.sh
+          retention-days: 1
+
+  release:
+    runs-on: ubuntu-latest
+    needs: build_installer
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: installer
+
+      - name: Release with tag
+        id: release-tag
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
+        with:
+          body: |
+            Install it
+            ```sh
+            curl -L https://github.com/littrick/installer.sh/releases/download/${{ github.ref_name }}/installer.sh > /tmp/install.sh && sh /tmp/install.sh
+            ```
+          files: installer.sh
