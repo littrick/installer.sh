@@ -1,9 +1,7 @@
 name: Release
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
+  workflow_dispatch:
 
 env:
   CC: clang
@@ -49,13 +47,12 @@ jobs:
           name: installer
 
       - name: Release with tag
-        id: release-tag
         uses: softprops/action-gh-release@v2
-        if: github.ref_type == 'tag'
         with:
+          tag_name: ${{ github.sha }}
           body: |
             Install it
             ```sh
-            curl -L https://github.com/littrick/installer.sh/releases/download/${{ github.ref_name }}/installer.sh | bash
+            curl -L https://github.com/littrick/installer.sh/releases/download/${{ github.sha }}/installer.sh | bash
             ```
           files: installer.sh
