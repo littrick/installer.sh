@@ -1,0 +1,7 @@
+[infomation]
+name = ".env"
+
+[[install.envrc]]
+raw ='''
+test -f .env && source .env
+'''
