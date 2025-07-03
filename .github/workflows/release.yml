@@ -27,8 +27,11 @@ jobs:
       - name: Setup the target
         run: rustup target add x86_64-unknown-linux-musl
 
-      - name: Build the Script_Builder
-        run: cargo r --bin script_builder -- -p pioneer -c configs/*.toml
+      - name: Check the config files
+        run: cargo r --bin checker -- configs/*.toml
+
+      - name: Build the Installer
+        run: cargo r --bin installer_builder -- pioneer -c configs/*.toml
 
       - uses: actions/upload-artifact@v4
         with:
@@ -53,6 +56,6 @@ jobs:
           body: |
             Install it
             ```sh
-            curl -L https://github.com/littrick/installer.sh/releases/download/${{ github.ref_name }}/installer.sh > /tmp/install.sh && sh /tmp/install.sh
+            curl -L https://github.com/littrick/installer.sh/releases/download/${{ github.ref_name }}/installer.sh | bash
             ```
           files: installer.sh
