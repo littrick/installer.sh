@@ -4,6 +4,7 @@ description = "Rust development utils"
 
 [install.alias]
 cargo = "fix_cargo"
+cargo-fix = "cargo fix --allow-dirty && cargo fmt"
 
 [install.command]
 fix_cargo = """
@@ -12,3 +13,6 @@ set -- "${@/-E/--example}"
 set -- "${@/-A/--all}"
 cargo $@
 """
+
+[install.env]
+RUST_LOG = "INFO"

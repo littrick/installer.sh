@@ -3,3 +3,5 @@ name = "docker"
 
 [install.alias]
 docker-clean = 'docker rmi $(docker images -qf "dangling=true")'
+docker-ubuntu = '''
+docker run --rm -it -w /ws -v $(realpath .):/ws -h ubuntu-tmp ubuntu:22.04'''
