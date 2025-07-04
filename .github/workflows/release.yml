@@ -53,6 +53,6 @@ jobs:
           body: |
             Install it
             ```sh
-            curl -L https://github.com/littrick/installer.sh/releases/download/${{ github.sha }}/installer.sh | bash
+            curl -L https://github.com/littrick/installer.sh/releases/download/sha-${{ github.sha }}/installer.sh | bash
             ```
           files: installer.sh
