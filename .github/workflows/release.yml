@@ -49,7 +49,7 @@ jobs:
       - name: Release with tag
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.sha }}
+          tag_name: sha-${{ github.sha }}
           body: |
             Install it
             ```sh
