@@ -4,13 +4,17 @@ description = "Rust development utils"
 
 [install.alias]
 cargo = "fix_cargo"
-cargo-fix = "cargo fix --allow-dirty && cargo fmt"
+cargof = "cargo fix --allow-dirty && cargo fmt"
+cargob-musl='cargo b --target x86_64-unknown-linux-musl'
 
 [install.command]
 fix_cargo = """
 #!/bin/bash
 set -- "${@/-E/--example}"
 set -- "${@/-A/--all}"
+set -- "${@/-B/--bin}"
+set -- "${@/-R/--release}"
+set -- "${@/--art/-Z unstable-options --artifact-dir}"
 cargo $@
 """
 
