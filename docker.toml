@@ -1,7 +1,10 @@
 [infomation]
 name = "docker"
 
+[install]
+apt = ["docker.io"]
+
 [install.alias]
 docker-clean = 'docker rmi $(docker images -qf "dangling=true")'
 docker-ubuntu = '''
-docker run --rm -it -w /ws -v $(realpath .):/ws -h ubuntu-tmp ubuntu:22.04'''
+docker run --rm -it -w /ws -v $(realpath .):/ws -h ubuntu-tmp ubuntu:lates'''

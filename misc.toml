@@ -3,10 +3,11 @@ name = "misc"
 description = "Misc utils"
 
 [install]
-apt = ["patchelf", "psmisc", "tree"]
+apt = ["patchelf", "psmisc", "tree", "make"]
 
 [install.alias]
 needed = "patchelf --print-needed"
+make="cmd_dur make"
 
 [install.command]
 
@@ -29,4 +30,24 @@ needed_r(){
 }
 
 needed_r $@
+"""
+
+cmd_dur = """
+#!/bin/bash
+
+cmd_dur() {
+    local  start end elapsed
+    start=$(date +%s.%N)
+    $@
+    end=$(date +%s.%N)
+
+    elapsed=$(echo "$end - $start" | bc -l)
+
+    echo "Command executed: $*"
+    echo "start： $(date -d "@$start" +"%Y-%m-%d %H:%M:%S")"
+    echo "end： $(date -d "@$end" +"%Y-%m-%d %H:%M:%S")"
+    echo "elapsed: ${elapsed} seconds"
+}
+
+cmd_dur $@
 """
