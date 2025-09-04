@@ -7,7 +7,6 @@ apt = ["patchelf", "psmisc", "tree", "make"]
 
 [install.alias]
 needed = "patchelf --print-needed"
-make="cmd_dur make"
 
 [install.command]
 
