@@ -14,7 +14,7 @@ set -- "${@/-E/--example}"
 set -- "${@/-A/--all}"
 set -- "${@/-B/--bin}"
 set -- "${@/-R/--release}"
-set -- "${@/--art/-Z unstable-options --artifact-dir}"
+set -- "${@/--art /-Z unstable-options --artifact-dir }"
 cargo $@
 """
 
